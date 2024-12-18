@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, lazy, Suspense} from "react";
+import { useState, useEffect, lazy } from "react";
 import DayTab from "@/components/DayTab";
 import ConditionsData from "@/components/ConditionsData";
 import { dayOfWeek, dayOfMonth, getHoursData, WDBG} from "@/utils/utils";

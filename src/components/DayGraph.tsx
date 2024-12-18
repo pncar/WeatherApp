@@ -24,7 +24,7 @@ const DayGraph = (props: {data: HourData[], dataKey: string}) => {
     switch(dataKey){
         case "precipprob":
             return(
-                <ResponsiveContainer width="100%" height={300}>
+                <ResponsiveContainer width={"100%"} height={300}>
                     <BarChart
                     width={500}
                     height={300}
@@ -72,7 +72,7 @@ const DayGraph = (props: {data: HourData[], dataKey: string}) => {
         case "temp":
         default:
             return(
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width={"100%"} height={300}>
                 <AreaChart
                 width={500}
                 height={400}

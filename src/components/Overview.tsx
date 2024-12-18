@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense} from "react";
 import DayTab from "@/components/DayTab";
 import ConditionsData from "@/components/ConditionsData";
 import { dayOfWeek, dayOfMonth, getHoursData, WDBG} from "@/utils/utils";
@@ -8,8 +8,8 @@ import { FaDroplet, FaGlassWaterDroplet } from "react-icons/fa6";
 import {useTranslations} from 'next-intl';
 import WeatherIcon from "@/components/WeatherIcon";
 import HourTabSmall from "@/components/HourTabSmall";
-import DayGraph from "@/components/DayGraph";
-import WeekGraph from "@/components/WeekGraph";
+const DayGraph = lazy(() => import("@/components/DayGraph"));
+const WeekGraph = lazy(() => import("@/components/WeekGraph"));
 import DynTemp from "@/components/DynTemp";
 import DayNightCycle from "@/components/DayNightCycle";
 import { useUserContext } from '@/context/UserContext';

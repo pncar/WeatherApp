@@ -28,7 +28,7 @@ const Navbar = (props: {onSwitchStyle: MouseEventHandler<HTMLDivElement>, onHand
 
 
     return(
-        <div className="w-full xl:w-2/3 m-auto container p-4 dark:text-primary-300 flex flex-col md:flex-row items-center md:space-x-8 space-y-2 md:space-y-0">
+        <div className="w-full 2xl:w-2/3 m-auto container p-4 dark:text-primary-300 flex flex-col md:flex-row items-center md:space-x-8 space-y-2 md:space-y-0">
             <div className="flex w-full md:w-auto items-center">
                 <div className="grow">
                     <Link href="/" className="cursor-pointer"><Logo/></Link>

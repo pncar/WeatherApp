@@ -45,7 +45,7 @@ const Overview = (props: {data: MainData}) => {
         <div className="w-full m-auto h-full flex flex-col">
             {conditions? <>
             <div className="text-primary-600 dark:text-primary-300 w-full h-full bg-primary-200 dark:bg-primary-900">
-                <div className="text-sm w-full xl:w-2/3 h-full m-auto">
+                <div className="text-sm w-full 2xl:w-2/3 h-full m-auto">
                 <div className="md:p-8 md:py-4">
                         <div className={`p-2 md:p-4 py-8 md:py-4 h-full`}>
                             <div className="pb-4">

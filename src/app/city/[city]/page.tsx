@@ -27,8 +27,10 @@ const City = () => {
 
     const router = useRouter();
 
+    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
     useEffect(()=>{
-        const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=SPWPQCBEGRLFPXZTU96JGY2YP${lang}&contentType=json`;
+        const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=${apiKey}${lang}&contentType=json`;
         fetch(url)
         .then((r)=>{
             return r.json() || null;

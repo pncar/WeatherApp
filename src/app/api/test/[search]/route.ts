@@ -5,8 +5,8 @@ import citiesData from "@/data/cities.json";
   
 const cities = citiesData as City[];
 
-const GET = async(request: NextRequest,{params}: {params: { search: string}}) => {
-    const { search } = params;
+const GET = async(request: NextRequest, {params}: {params: Promise<{ search: string}>}) => {
+    const { search } = await params;
     try{
         const prev = cities[Math.floor(Math.random() * cities.length)].name;
         const cityArray = cities.filter((city: City)=>{ return city.name.toLowerCase().includes(search.toLowerCase())}).slice(0,10);

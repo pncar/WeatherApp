@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from 'next/navigation';
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+//import "/node_modules/flag-icons/css/flag-icons.min.css";
 const CitySearch = () => {
 
     const cityRef = useRef<HTMLInputElement|null>(null);
@@ -32,7 +32,7 @@ const CitySearch = () => {
           cityRef.current.value = "";
         }
         setSearchValue(cityRef.current.value);
-
+        
         /*
         const res = await fetch(`/api/test/${cityRef.current.value}`);
         const data = await res.json();

@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import citiesData from "@/data/cities.json";
 
   
 const cities = citiesData as City[];
 
-//@ts-ignore
-const GET = async(request,{params}) => {
-    const { search } = await params;
+const GET = async(request: NextRequest,{params}: {params: { search: string}}) => {
+    const { search } = params;
     try{
         const prev = cities[Math.floor(Math.random() * cities.length)].name;
         const cityArray = cities.filter((city: City)=>{ return city.name.toLowerCase().includes(search.toLowerCase())}).slice(0,10);

@@ -79,3 +79,10 @@ declare type DayData = {
     tempmin: number,
     range: number[]
 }
+
+type City = {
+    country: string;
+    name: string;
+    lat: string;
+    lng: string;
+  };

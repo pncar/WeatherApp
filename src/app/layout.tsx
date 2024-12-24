@@ -45,7 +45,7 @@ export default async function RootLayout({
     <CookiesProvider>
       <html lang={locale} className={`${inter.variable}`}>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-custom-1`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
         >
           <NextIntlClientProvider messages={messages}>
             {children}

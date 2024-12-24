@@ -4,7 +4,7 @@ const UserContext = createContext();
 
 export function UserProvider({ children }) {
   const [tempType,setTempType] = useState(()=>{
-    return(localStorage.getItem("tempType"));
+    return(localStorage.getItem("tempType") || "C");
   });
   const [lang,setLang] = useState("en");
 

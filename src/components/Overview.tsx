@@ -87,7 +87,7 @@ const Overview = (props: {data: MainData}) => {
             <div className="w-full shadow-lg sticky bottom-0 z-10">
                 <div className="flex flex-col md:flex-row">
                     <div className={`flex flex-col w-full h-full p-2`}>
-                        <div onClick={()=>{handleConditions(data.currentConditions, true)}} className={`${WDBG(data.currentConditions.icon)} rounded-lg shadow-lg cursor-pointer w-full ${viewingCurrent ? "bg-opacity-100" : "bg-opacity-50"} flex flex-col py-4`}>
+                        <div onClick={()=>{setToggleUnderTabs(!toggleUnderTabs)}} className={`${WDBG(data.currentConditions.icon)} rounded-lg shadow-lg cursor-pointer w-full ${viewingCurrent ? "bg-opacity-100" : "bg-opacity-50"} flex flex-col py-4`}>
                             <div className={`py-2 text-xs container w-full m-auto flex flex-col items-center text-primary-50`}>
                                 <div className="flex flex-col">
                                     <div className="flex justify-center">
@@ -108,8 +108,11 @@ const Overview = (props: {data: MainData}) => {
                                         {data.resolvedAddress}
                                 </div>
                             </div>
-                            <div onClick={()=>{setToggleUnderTabs(!toggleUnderTabs)}} className="p-1 flex items-center justify-center">
-                                <FaCaretDown className={`${toggleUnderTabs ? "rotate-0" : "rotate-180"} transition-all text-primary-300`}/>
+                            <div className="p-1 flex flex-col md:flex-row md:space-x-2 items-center justify-center">
+                                <button onClick={()=>{handleConditions(data.currentConditions, true)}} className={`${viewingCurrent ? "opacity-100" : "opacity-50"} bg-primary-900 rounded-md p-1 px-3 text-sm uppercase text-primary-50`}>
+                                    {t("title")}
+                                </button>
+                                {false? <FaCaretDown className={`${toggleUnderTabs ? "rotate-0" : "rotate-180"} w-full md:w-auto text-lg transition-all text-primary-300`}/> : <></>}
                             </div>
                         </div>
                     </div>

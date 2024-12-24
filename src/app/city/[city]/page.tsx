@@ -78,7 +78,7 @@ const City = () => {
                                 <p>{error.msg}</p>
                             </div>
                         </div>:<></>}
-                        <div className="sticky top-0 z-10 w-full shadow-md bg-primary-50 dark:bg-primary-950 ">
+                        <div className="z-20 sticky top-0 w-full shadow-md bg-primary-50 dark:bg-primary-950">
                             <Navbar onSwitchStyle={switchStyle} onHandleSetLang={handleSetLang}/>
                         </div>
                         <div className="w-full m-auto">

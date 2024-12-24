@@ -1,7 +1,7 @@
 import Logo from "@/components/Logo";
 import TestSetState from "@/components/TestSetState";
-import { MouseEventHandler } from "react";
-import { useState } from "react";
+import useCitySearch from "@/hooks/useCitySearch";
+import { MouseEventHandler, useState, useRef } from "react";
 import { useRouter } from 'next/navigation';
 import { GiHamburgerMenu, GiMagnifyingGlass } from "react-icons/gi";
 import { FaGlobe } from "react-icons/fa";
@@ -26,6 +26,9 @@ const Navbar = (props: {onSwitchStyle: MouseEventHandler<HTMLDivElement>, onHand
     
     const cookies = useCookies();
 
+    const cityRef =  useRef<HTMLInputElement|null>(null);
+    const { searchValue, cityPool, handleSubmit, monitorInput } = useCitySearch(cityRef);
+
 
     return(
         <div className="w-full 2xl:w-2/3 m-auto container p-4 dark:text-primary-300 flex flex-col md:flex-row items-center md:space-x-8 space-y-2 md:space-y-0">
@@ -39,7 +42,7 @@ const Navbar = (props: {onSwitchStyle: MouseEventHandler<HTMLDivElement>, onHand
                     </div>
                 </div>
             </div>
-            <div className={`${toggle ? "max-h-[100vh]" : "max-h-0 md:max-h-[100vh]"} transition-all overflow-hidden flex w-full flex-col md:flex-row items-center justify-end md:space-x-4 space-y-4 md:space-y-0`}>
+            <div className={`${toggle ? "max-h-[100vh]" : "max-h-0 md:max-h-[100vh]"} relative overflow-hidden md:overflow-visible transition-all flex w-full flex-col md:flex-row items-center justify-end md:space-x-4 space-y-4 md:space-y-0`}>
                 <div className="flex items-center w-full md:w-auto space-x-2">
                     <div className="">
                         <p className="w-full font-bold py-2 md:py-0 dark:text-primary-300 md:hidden text-sm">Style: </p>
@@ -62,12 +65,21 @@ const Navbar = (props: {onSwitchStyle: MouseEventHandler<HTMLDivElement>, onHand
                         <option value={"jp"}>日本語</option>
                     </select>
                 </div>
-                <div className="w-full md:w-auto text-sm flex flex-col md:flex-row items-center text-primary-700 dark:text-primary-400">
+                <div className="relative w-full md:w-auto text-sm flex flex-col md:flex-row items-center text-primary-700 dark:text-primary-400">
                     <p className="w-full font-bold py-2 dark:text-primary-300 md:hidden">Search: </p>
-                    <form onSubmit={handleSearch} className="flex items-center h-8 w-full md:w-auto py-1 px-2 rounded-md border bg-primary-100 dark:bg-primary-800 border-primary-300 dark:border-primary-700">
-                        <input name="city" type="text" className="bg-transparent h-full w-full focus:outline-0"/>
+                    <form onSubmit={handleSubmit} className="flex items-center h-8 w-full md:w-auto py-1 px-2 rounded-md border bg-primary-100 dark:bg-primary-800 border-primary-300 dark:border-primary-700">
+                        <input ref={cityRef} onChange={monitorInput} defaultValue={searchValue} name="city" type="text" className="bg-transparent h-full w-full focus:outline-0"/>
                         <GiMagnifyingGlass/>
                     </form>
+                    <div className="relative md:absolute w-full z-50 top-1 md:top-10">
+                        {cityPool && searchValue.length > 2 ? 
+                        <div className="overflow-y-scroll md:overflow-y-visible max-h-[50vh] md:max-h-full w-full bg-white rounded-md border border-primary-300 shadow-lg p-4 flex flex-col overflow-y-auto">
+                            {cityPool.slice(0,20).map((item:City,key:number)=>
+                            <p key={key} onClick={()=>{router.push(`/city/${item.name}`)}} className="flex space-x-2 transition-all bg-white hover:bg-primary-200 rounded-md hover:cursor-pointer p-2 px-4">
+                                <span className={`fi fi-${item.country.toLowerCase() || ""}`}/><span>{item.name}</span>
+                            </p>)}
+                        </div>:<></>}
+                    </div>
                 </div>
             </div>
         </div>

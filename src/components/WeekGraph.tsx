@@ -1,14 +1,37 @@
-import { ComposedChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { ComposedChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps } from 'recharts';
 import { useUserContext } from '../context/UserContext';
 import { fahrenheit, getDaysData } from "@/utils/utils";
 import {useTranslations} from 'next-intl';
 import DynGrad from "@/components/DynGrad";
+import {
+    ValueType,
+    NameType,
+} from 'recharts/types/component/DefaultTooltipContent';
 
 const WeekGraph = (props: { data: MainData }) => {
 
     const { data } = props;
     const { tempType } = useUserContext();
     const t_api = useTranslations('APIContent');
+
+
+    const CustomTooltip = ({ active, payload, label }: TooltipProps<ValueType, NameType>) => {
+
+        if (active && payload && payload.length) {
+
+        const tempMax = tempType === "F" ? fahrenheit(payload[0].payload.tempmax).toString() : payload[0].payload.tempmax;   
+        const tempMin = tempType === "F" ? fahrenheit(payload[0].payload.tempmin).toString() : payload[0].payload.tempmin;   
+
+          return (
+            <div className="font-mono custom-tooltip bg-primary-50 dark:bg-primary-900 p-3 rounded-md text-primary-950 dark:text-primary-50 border border-primary-300 dark:border-primary-800 shadow-lg">
+              <p className="text-red-600 dark:text-red-500">Max: {tempMax}</p>
+              <p className="text-blue-500 dark:text-blue-400">Min: {tempMin}</p>
+            </div>
+          );
+        }
+      
+        return null;
+    };
 
     return(
     <ResponsiveContainer width="100%" height={300}>
@@ -29,7 +52,7 @@ const WeekGraph = (props: { data: MainData }) => {
             <CartesianGrid strokeDasharray="3 3" stroke={`#52525b`} strokeOpacity={0.5}/>
             <XAxis dataKey="title" style={{fontSize: 9}} tickFormatter={(n)=>{return t_api(n)}}/>
             <YAxis tickFormatter={(n)=>{{if(tempType === "F"){return fahrenheit(n).toString();}else{return n;}}}} domain={[`dataMin - 0.5`, `dataMax + 0.5`]} style={{fontSize: 9}} />
-            <Tooltip />
+            <Tooltip content={<CustomTooltip/>}/>
             {
             /* Currently redundant
             <>

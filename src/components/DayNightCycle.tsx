@@ -8,7 +8,7 @@ const DayNightCycle = (props: {data: MainData}) => {
 
     const t = useTranslations('HomePage');
 
-    const {full,sunrise,sunset, current, day, sinceSunrise, sinceSunset, tillSunrise, tillSunset} = whole(data);
+    const {full,sunrise,sunset, current, day, sinceSunrise, sinceSunset, tillSunrise, tillSunset, currentUTC} = whole(data);
 
     const format = (n:number,day: boolean = true) => {
         const d = new Date(n*1000);
@@ -22,10 +22,11 @@ const DayNightCycle = (props: {data: MainData}) => {
 
     }
 
+
     return(
         <div className="flex flex-col space-y-4">
             <div className="relative w-full h-16 flex items-center">
-                <div className={`absolute bottom-1 flex flex-col-reverse space-y-2 justify-center items-center`} style={{left: `${current * 100 / full}%`}}><FaCaretDown/><span className="text-tiny">{toHM(current)}</span></div>
+                <div className={`absolute bottom-1 flex flex-col-reverse space-y-2 justify-center items-center`} style={{left: `${current * 100 / full}%`}}><FaCaretDown/><span className="text-tiny">{toHM(currentUTC)}</span></div>
             </div>
             <div className={`relative m-auto w-full h-6 flex items-center rounded-md overflow-hidden`}>
                 <div className={`absolute w-full h-full border-2 border-opacity-50 border-primary-950 rounded-md`} style={{backgroundImage: `linear-gradient(to right, 

@@ -18,11 +18,13 @@ const Navbar = (props: {onSwitchStyle: MouseEventHandler<HTMLDivElement>, onHand
 
     const t = useTranslations('HomePage');
 
+    /*
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const city = e.target as HTMLFormElement
         router.push(`/city/${city.city.value}`);
     }
+    */
     
     const cookies = useCookies();
 

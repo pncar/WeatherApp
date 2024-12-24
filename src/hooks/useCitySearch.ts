@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef, RefObject } from "react";
+import { useState, useEffect, RefObject } from "react";
 import { useRouter } from 'next/navigation';
 
 const useCitySearch = (inputRef:RefObject<HTMLInputElement|null>) => {

@@ -27,6 +27,7 @@ const DayGraph = (props: {data: HourData[], dataKey: string}) => {
         fontSize: 9
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const CustomTooltip = ({ active, payload, label }: TooltipProps<ValueType, NameType>) => {
 
         if (active && payload && payload.length) {

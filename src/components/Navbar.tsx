@@ -4,6 +4,7 @@ import useCitySearch from "@/hooks/useCitySearch";
 import { MouseEventHandler, useState, useRef } from "react";
 import { useRouter } from 'next/navigation';
 import { GiHamburgerMenu, GiMagnifyingGlass } from "react-icons/gi";
+import { GrClose } from "react-icons/gr";
 import { FaGlobe } from "react-icons/fa";
 import {useTranslations} from 'next-intl';
 import { useCookies } from 'next-client-cookies';
@@ -40,7 +41,9 @@ const Navbar = (props: {onSwitchStyle: MouseEventHandler<HTMLDivElement>, onHand
                 </div>
                 <div className="grow justify-end flex md:hidden">
                     <div onClick={()=>{setToggle(!toggle)}} className="p-2 flex flex-col items-center cursor-pointer w-8 h-8 rounded-md bg-primary-300 dark:bg-primary-900">
-                        <GiHamburgerMenu className={`${!toggle? "rotate-0" : "rotate-90"} transition-all`}/>
+                        {!toggle ? 
+                            <GiHamburgerMenu/>:
+                            <GrClose/>}
                     </div>
                 </div>
             </div>

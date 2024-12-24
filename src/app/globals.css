@@ -34,4 +34,19 @@ body {
   .bg-custom-1 {
     background-image: radial-gradient(circle, rgba(255,255,255,1) 37%, rgba(233,226,205,1) 49%, rgba(32,115,180,1) 77%);;
   }
+  .come-from-top{
+    animation: come-from-top 1s;
+  }
+  .pop{
+    animation: pop 1s;
+  }
+}
+
+@keyframes come-from-top{
+  from{transform: translate(0,-300px)}
+  to{transform: translate(0,0)}
+}
+@keyframes pop{
+  from{transform: scale(0%)}
+  to{transform: scale(100%)}
 }

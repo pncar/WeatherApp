@@ -203,20 +203,21 @@ const whole = (data: MainData) => {
     const now = new Date();
 
     const full = 3600 * 24;
-    //const current = toSeconds(data.currentConditions.datetime);
-    const current = ((now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds() + (data.tzoffset * 3600))) % (24*3600);
-    const currentUTC = ((now.getUTCHours() * 3600 + now.getUTCMinutes() * 60 + now.getUTCSeconds() + (data.tzoffset * 3600))) % (24*3600);
+    let current = (now.getUTCHours() * 3600 + now.getUTCMinutes() * 60 + now.getUTCSeconds() + (data.tzoffset * 3600));
+    if(current < 0){
+        current = full - Math.abs(current);
+    }
     const sunrise = toSeconds(data.currentConditions.sunrise || "00:00:00");
     const sunset = toSeconds(data.currentConditions.sunset || "00:00:00");
     const nighttime = sunrise + (full - sunset);
     const daytime = full - nighttime;
-    const day = currentUTC > sunrise && currentUTC < sunset ? true : false;
-    const tillSunset = sunset - currentUTC;
-    const sinceSunrise = currentUTC - sunrise;
-    const tillSunrise = currentUTC < sunrise ? sunrise - currentUTC : full - currentUTC + (sunrise);
-    const sinceSunset = currentUTC > sunset ? currentUTC - sunset : currentUTC + (full - sunset);
+    const day = current > sunrise && current < sunset ? true : false;
+    const tillSunset = sunset - current;
+    const sinceSunrise = current - sunrise;
+    const tillSunrise = current < sunrise ? sunrise - current : full - current + (sunrise);
+    const sinceSunset = current > sunset ? current - sunset : current + (full - sunset);
 
-    return { full, current, currentUTC, sunrise, sunset, nighttime, daytime, day, tillSunrise, tillSunset, sinceSunrise, sinceSunset }
+    return { full, current, sunrise, sunset, nighttime, daytime, day, tillSunrise, tillSunset, sinceSunrise, sinceSunset }
 }
 
 

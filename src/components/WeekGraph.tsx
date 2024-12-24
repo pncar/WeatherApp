@@ -19,13 +19,15 @@ const WeekGraph = (props: { data: MainData }) => {
 
         if (active && payload && payload.length) {
 
+        const title = `${t_api(payload[0].payload.titleLong)} ${payload[0].payload.dom}`;
         const tempMax = tempType === "F" ? fahrenheit(payload[0].payload.tempmax).toString() : payload[0].payload.tempmax;   
         const tempMin = tempType === "F" ? fahrenheit(payload[0].payload.tempmin).toString() : payload[0].payload.tempmin;   
 
           return (
-            <div className="font-mono custom-tooltip bg-primary-50 dark:bg-primary-900 p-3 rounded-md text-primary-950 dark:text-primary-50 border border-primary-300 dark:border-primary-800 shadow-lg">
-              <p className="text-red-600 dark:text-red-500">Max: {tempMax}</p>
-              <p className="text-blue-500 dark:text-blue-400">Min: {tempMin}</p>
+            <div className="custom-tooltip bg-primary-50 dark:bg-primary-900 p-3 rounded-md text-primary-950 dark:text-primary-50 border border-primary-300 dark:border-primary-800 shadow-lg">
+              <p className="font-bold">{title}</p>
+              <p className="font-mono text-red-600 dark:text-red-500">Max: {tempMax}º</p>
+              <p className="font-mono text-blue-500 dark:text-blue-400">Min: {tempMin}º</p>
             </div>
           );
         }

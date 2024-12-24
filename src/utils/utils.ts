@@ -60,11 +60,11 @@ const uvIndex = (uv:number) => {
 }
 
 const getHoursData = (day:Day) => {
-    return day.hours.map((o:Conds)=>{return {title: o.datetime || "", temp: Math.round(o.temp*10)/10 || 0, humidity: o.humidity || 0, precipprob: o.precipprob || 0, windspeed: o.windspeed || 0}});
+    return day.hours.map((o:Conds)=>{return {title: o.datetime || "", temp: Math.round(o.temp*10)/10 || 0, humidity: o.humidity || 0, precipprob: o.precipprob || 0, windspeed: o.windspeed || 0, icon: o.icon || "clear-day", desc: o.conditions || ""}});
 }
 
 const getDaysData = (batch:Day[]) => {
-    return batch.map((o:Conds)=>{return {title: `${dayOfWeek(o.datetimeEpoch * 1000, "short").title}`, temp: o.temp, tempmax: o.tempmax, tempmin: o.tempmin, range: [o.tempmin,o.tempmax]}});
+    return batch.map((o:Conds)=>{return {title: `${dayOfWeek(o.datetimeEpoch * 1000, "short").title}`, titleLong: `${dayOfWeek(o.datetimeEpoch * 1000).title}`, dom: dayOfMonth(o.datetimeEpoch * 1000), temp: o.temp, tempmax: o.tempmax, tempmin: o.tempmin, range: [o.tempmin,o.tempmax]}});
 }
 
 const isDay = (e: number, r: number = 0, s: number = 0): boolean => {

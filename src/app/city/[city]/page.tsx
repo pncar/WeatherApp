@@ -68,29 +68,30 @@ const City = () => {
 
     return(
         <UserProvider>
-            <div className={`${style ? "dark" : ""}`}>
-            <Suspense fallback={<div className="min-h-screen flex items-center justify-center space-x-2 bg-white dark:bg-primary-950 text-primary-900 dark:text-primary-50"><Spinner/><span>Loading</span></div>}>
-                <div className={``}>
-                    <div className={`shadow-lg bg-primary-300 dark:bg-primary-900 flex flex-col min-h-screen`}>
-                        {error?
-                        <div className="absolute bottom-4 w-full font-bold text-sm text-primary-300">
-                            <div className="bg-red-500 p-2 px-4 rounded-md w-32 m-auto text-center">
-                                <p>{error.msg}</p>
+            <div className={style ? "dark" : ""}>
+                <Suspense
+                    fallback={
+                        <div className="min-h-screen flex items-center justify-center space-x-2 bg-white dark:bg-primary-950 text-primary-900 dark:text-primary-50">
+                            <Spinner />
+                            <span>Loading</span>
+                        </div>
+                    }>
+                    <div className="shadow-lg bg-primary-300 dark:bg-primary-900 flex flex-col min-h-screen">
+                        {error && (
+                            <div className="absolute bottom-4 w-full font-bold text-sm text-primary-300">
+                                <div className="bg-red-500 p-2 px-4 rounded-md w-32 m-auto text-center">
+                                    <p>{error.msg}</p>
+                                </div>
                             </div>
-                        </div>:<></>}
+                        )}
                         <div className="z-20 sticky top-0 w-full shadow-md bg-primary-50 dark:bg-primary-950">
-                            <Navbar onSwitchStyle={switchStyle} onHandleSetLang={handleSetLang}/>
+                            <Navbar onSwitchStyle={switchStyle} onHandleSetLang={handleSetLang} />
                         </div>
                         <div className="w-full m-auto">
-                            {data ? 
-                            <>
-                                <Overview data={data}/>
-                            </>:<></>
-                            }
+                            {data && <Overview data={data} />}
                         </div>
                     </div>
-                </div>
-            </Suspense>
+                </Suspense>
             </div>
         </UserProvider>
     )

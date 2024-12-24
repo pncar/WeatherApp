@@ -1,7 +1,13 @@
-import { AreaChart, BarChart, Bar, Rectangle, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, BarChart, Bar, Rectangle, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps } from 'recharts';
 import { useUserContext } from '@/context/UserContext';
 import { fahrenheit, trimHour } from "@/utils/utils";
 import DynGrad from "@/components/DynGrad";
+import WeatherIcon from "@/components/WeatherIcon";
+import {
+    ValueType,
+    NameType,
+} from 'recharts/types/component/DefaultTooltipContent';
+
 
 const DayGraph = (props: {data: HourData[], dataKey: string}) => {
 
@@ -20,6 +26,30 @@ const DayGraph = (props: {data: HourData[], dataKey: string}) => {
     const commonStyle = {
         fontSize: 9
     }
+
+    const CustomTooltip = ({ active, payload, label }: TooltipProps<ValueType, NameType>) => {
+
+        if (active && payload && payload.length) {
+
+        const icon = payload[0].payload.icon; 
+        const temp = tempType === "F" ? fahrenheit(payload[0].payload.temp).toString() : payload[0].payload.temp;   
+        const title = payload[0].payload.title.split(":")[0] + ":" + payload[0].payload.title.split(":")[1];
+        const desc = payload[0].payload.desc;
+
+          return (
+            <div className="custom-tooltip bg-primary-50 dark:bg-primary-900 p-3 rounded-md text-primary-950 dark:text-primary-50 border border-primary-300 dark:border-primary-800 shadow-lg">
+              <p className="font-mono">{title}</p>
+              <div className="flex space-x-2 items-center">
+                <WeatherIcon value={icon}/>
+                <p className="font-mono font-bold">{temp}º</p>
+              </div>
+              <p className="font-tiny">{desc}</p>
+            </div>
+          );
+        }
+      
+        return null;
+    };
 
     switch(dataKey){
         case "precipprob":
@@ -87,6 +117,7 @@ const DayGraph = (props: {data: HourData[], dataKey: string}) => {
                     <defs>
                         <DynGrad data={data}/>
                     </defs>
+                    <Tooltip content={<CustomTooltip/>}/>
                     <CartesianGrid strokeDasharray="3 3" stroke={`#52525b`} strokeOpacity={0.5}/>
                     <XAxis dataKey="title" style={commonStyle} tickFormatter={(tick)=>{return `${trimHour(tick)} hs`}}/>
                     <YAxis tickFormatter={(n)=>{{if(tempType === "F"){return fahrenheit(n).toString();}else{return n;}}}} domain={[`dataMin - 1`, `dataMax + 1`]} style={commonStyle} />

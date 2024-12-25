@@ -22,6 +22,9 @@ const Overview = (props: {data: MainData}) => {
     const [viewingCurrent,setViewingCurrent] = useState<boolean>(true); // Boolean that indicates if the user is viewing the Current Conditions or an specific day
     const [toggleUnderTabs,setToggleUnderTabs] = useState<boolean>(true); // Toggles the day and hour tabs in the bottom
 
+    const [touchStart, setTouchStart] = useState<number|null>(null);
+    const [touchEnd, setTouchEnd] = useState<number|null>(null);
+
     const { tempType } = useUserContext();
 
     useEffect(()=>{
@@ -41,9 +44,29 @@ const Overview = (props: {data: MainData}) => {
         setConditions({...conditions,temp,icon,conditions,cloudcover,humidity,windspeed,pressure,visibility,uvindex,precip,preciptype,dew,solarradiation,solarenergy,datetime,datetimeEpoch,moonphase,isHour});
     }
 
+    // the required distance between touchStart and touchEnd to be detected as a swipe
+    const minSwipeDistance = 50 
+
+    const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
+    setTouchStart(e.targetTouches[0].clientY)
+    }
+
+    const onTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientY)
+
+    const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+    if (isLeftSwipe || isRightSwipe) console.log('swipe', isLeftSwipe ? 'left' : 'right')
+    // add your conditional logic here
+    setToggleUnderTabs(!toggleUnderTabs);
+    }
+
     return(
         <div className="w-full m-auto h-full flex flex-col">
-            {conditions? <>
+            {conditions && <>
             <div className="text-primary-600 dark:text-primary-300 w-full h-full bg-primary-200 dark:bg-primary-900">
                 <div className="text-sm w-full 2xl:w-2/3 h-full m-auto">
                 <div className="md:p-8 md:py-4">
@@ -84,10 +107,10 @@ const Overview = (props: {data: MainData}) => {
                     </div>
                 </div>
             </div>
-            <div className="w-full shadow-lg sticky bottom-0 z-10">
+            <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className="w-full shadow-lg sticky bottom-0 z-10">
                 <div className="flex flex-col md:flex-row">
                     <div className={`flex flex-col w-full h-full p-2`}>
-                        <div onClick={()=>{setToggleUnderTabs(!toggleUnderTabs)}} className={`${WDBG(data.currentConditions.icon)} rounded-lg shadow-lg cursor-pointer w-full ${viewingCurrent ? "bg-opacity-100" : "bg-opacity-50"} flex flex-col py-4`}>
+                        <div onClick={()=>{false && setToggleUnderTabs(!toggleUnderTabs)}} className={`${WDBG(data.currentConditions.icon)} rounded-lg shadow-lg cursor-pointer w-full ${viewingCurrent ? "bg-opacity-100" : "bg-opacity-50"} flex flex-col py-4`}>
                             <div className={`py-2 text-xs container w-full m-auto flex flex-col items-center text-primary-50`}>
                                 <div className="flex flex-col">
                                     <div className="flex justify-center">
@@ -135,7 +158,7 @@ const Overview = (props: {data: MainData}) => {
                         </div>
                     </div>
                 </div>
-            </div></>:<></>}
+            </div></>}
         </div>
     )
 }

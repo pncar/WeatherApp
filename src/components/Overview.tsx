@@ -110,7 +110,7 @@ const Overview = (props: {data: MainData}) => {
             <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className="w-full shadow-lg sticky bottom-0 z-10">
                 <div className="flex flex-col md:flex-row">
                     <div className={`flex flex-col w-full h-full p-2`}>
-                        <div onClick={()=>{false && setToggleUnderTabs(!toggleUnderTabs)}} className={`${WDBG(data.currentConditions.icon)} rounded-lg shadow-lg cursor-pointer w-full ${viewingCurrent ? "bg-opacity-100" : "bg-opacity-50"} flex flex-col py-4`}>
+                        <div onClick={()=>{if(1 + 1 === 3) {setToggleUnderTabs(!toggleUnderTabs)}}} className={`${WDBG(data.currentConditions.icon)} rounded-lg shadow-lg cursor-pointer w-full ${viewingCurrent ? "bg-opacity-100" : "bg-opacity-50"} flex flex-col py-4`}>
                             <div className={`py-2 text-xs container w-full m-auto flex flex-col items-center text-primary-50`}>
                                 <div className="flex flex-col">
                                     <div className="flex justify-center">

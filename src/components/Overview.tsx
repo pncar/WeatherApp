@@ -21,10 +21,7 @@ const Overview = (props: {data: MainData}) => {
     const [conditions,setConditions] = useState<Day|Conds|null>(null); // The conditions object which is not the same as data.currentConditions
     const [viewingCurrent,setViewingCurrent] = useState<boolean>(true); // Boolean that indicates if the user is viewing the Current Conditions or an specific day
     const [toggleUnderTabs,setToggleUnderTabs] = useState<boolean>(true); // Toggles the day and hour tabs in the bottom
-
-    const [touchStart, setTouchStart] = useState<number|null>(null);
-    const [touchEnd, setTouchEnd] = useState<number|null>(null);
-
+    
     const { tempType } = useUserContext();
 
     useEffect(()=>{
@@ -44,25 +41,6 @@ const Overview = (props: {data: MainData}) => {
         setConditions({...conditions,temp,icon,conditions,cloudcover,humidity,windspeed,pressure,visibility,uvindex,precip,preciptype,dew,solarradiation,solarenergy,datetime,datetimeEpoch,moonphase,isHour});
     }
 
-    // the required distance between touchStart and touchEnd to be detected as a swipe
-    const minSwipeDistance = 50 
-
-    const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
-    setTouchStart(e.targetTouches[0].clientY)
-    }
-
-    const onTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientY)
-
-    const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return
-    const distance = touchStart - touchEnd
-    const isLeftSwipe = distance > minSwipeDistance
-    const isRightSwipe = distance < -minSwipeDistance
-    if (isLeftSwipe || isRightSwipe) console.log('swipe', isLeftSwipe ? 'left' : 'right')
-    // add your conditional logic here
-    setToggleUnderTabs(!toggleUnderTabs);
-    }
 
     return(
         <div className="w-full m-auto h-full flex flex-col">
@@ -107,10 +85,10 @@ const Overview = (props: {data: MainData}) => {
                     </div>
                 </div>
             </div>
-            <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className="w-full shadow-lg sticky bottom-0 z-10">
+            <div className="w-full shadow-lg sticky bottom-0 z-10">
                 <div className="flex flex-col md:flex-row">
                     <div className={`flex flex-col w-full h-full p-2`}>
-                        <div onClick={()=>{if(1 + 1 === 3) {setToggleUnderTabs(!toggleUnderTabs)}}} className={`${WDBG(data.currentConditions.icon)} rounded-lg shadow-lg cursor-pointer w-full ${viewingCurrent ? "bg-opacity-100" : "bg-opacity-50"} flex flex-col py-4`}>
+                        <div onClick={()=>{setToggleUnderTabs(!toggleUnderTabs)}} className={`${WDBG(data.currentConditions.icon)} rounded-lg shadow-lg cursor-pointer w-full ${viewingCurrent ? "bg-opacity-100" : "bg-opacity-50"} flex flex-col py-4`}>
                             <div className={`py-2 text-xs container w-full m-auto flex flex-col items-center text-primary-50`}>
                                 <div className="flex flex-col">
                                     <div className="flex justify-center">

@@ -3,7 +3,7 @@ import { useState, useEffect, lazy } from "react";
 import DayTab from "@/components/DayTab";
 import ConditionsData from "@/components/ConditionsData";
 import { dayOfWeek, dayOfMonth, getHoursData, WDBG} from "@/utils/utils";
-import { FaThermometer, FaCaretDown } from "react-icons/fa";
+import { FaThermometer, FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { FaDroplet, FaGlassWaterDroplet } from "react-icons/fa6";
 import {useTranslations} from 'next-intl';
 import WeatherIcon from "@/components/WeatherIcon";
@@ -21,7 +21,7 @@ const Overview = (props: {data: MainData}) => {
     const [conditions,setConditions] = useState<Day|Conds|null>(null); // The conditions object which is not the same as data.currentConditions
     const [viewingCurrent,setViewingCurrent] = useState<boolean>(true); // Boolean that indicates if the user is viewing the Current Conditions or an specific day
     const [toggleUnderTabs,setToggleUnderTabs] = useState<boolean>(true); // Toggles the day and hour tabs in the bottom
-    
+
     const { tempType } = useUserContext();
 
     useEffect(()=>{
@@ -87,8 +87,8 @@ const Overview = (props: {data: MainData}) => {
             </div>
             <div className="w-full shadow-lg sticky bottom-0 z-10">
                 <div className="flex flex-col md:flex-row">
-                    <div className={`flex flex-col w-full h-full p-2`}>
-                        <div onClick={()=>{setToggleUnderTabs(!toggleUnderTabs)}} className={`${WDBG(data.currentConditions.icon)} rounded-lg shadow-lg cursor-pointer w-full ${viewingCurrent ? "bg-opacity-100" : "bg-opacity-50"} flex flex-col py-4`}>
+                    <div className={`flex flex-col w-full h-full ${toggleUnderTabs ? "p-2" : "p-0"}`}>
+                        <div className={`${WDBG(data.currentConditions.icon)}  ${toggleUnderTabs ? "rounded-lg" : "rounded-none"} shadow-lg cursor-pointer w-full ${viewingCurrent ? "bg-opacity-100" : "bg-opacity-50"} flex flex-col py-4`}>
                             <div className={`py-2 text-xs container w-full m-auto flex flex-col items-center text-primary-50`}>
                                 <div className="flex flex-col">
                                     <div className="flex justify-center">
@@ -110,7 +110,7 @@ const Overview = (props: {data: MainData}) => {
                                 </div>
                             </div>
                             <div className="p-1 flex flex-col md:flex-row md:space-x-2 items-center justify-center">
-                                <button onClick={()=>{handleConditions(data.currentConditions, true)}} className={`${viewingCurrent ? "opacity-100" : "opacity-50"} bg-primary-900 rounded-md p-1 px-3 text-sm uppercase text-primary-50`}>
+                                <button onClick={()=>{handleConditions(data.currentConditions, true)}} className={`${viewingCurrent ? "opacity-100 animate-pulse" : "opacity-50 animate-none"} bg-primary-900 rounded-md p-1 px-3 text-sm uppercase text-primary-50`}>
                                     {t("title")}
                                 </button>
                                 {false? <FaCaretDown className={`${toggleUnderTabs ? "rotate-0" : "rotate-180"} w-full md:w-auto text-lg transition-all text-primary-300`}/> : <></>}
@@ -118,7 +118,7 @@ const Overview = (props: {data: MainData}) => {
                         </div>
                     </div>
                 </div>
-                <div className={`${ toggleUnderTabs ? "max-h-[100vh]" : "max-h-0"} w-full transition-all overflow-hidden`}>
+                <div className={`${ toggleUnderTabs ? "max-h-[100vh]" : "max-h-0"} w-full transition-all overflow-hidden flex`}>
                     <div className="w-full">
                         <div className={`flex w-full overflow-x-scroll md:overflow-x-auto no-scrollbar relative p-0.5 space-x-0.5 bg-primary-300 dark:bg-primary-900`}>
                             {data.days.map((day:Day,key:number)=>
@@ -135,6 +135,9 @@ const Overview = (props: {data: MainData}) => {
                             )}
                         </div>
                     </div>
+                </div>
+                <div onClick={()=>{setToggleUnderTabs(!toggleUnderTabs)}} className="cursor-pointer py-2 w-full bg-primary-900 bg-gradient-to-t from-primary-950 to-primary-800 flex items-center justify-center text-primary-50">
+                    {toggleUnderTabs ? <FaCaretDown/> : <FaCaretUp/>}
                 </div>
             </div></>}
         </div>

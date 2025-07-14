@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+ClearSky is a modern, multilingual weather app built with Next.js and TypeScript, powered by the Visual Crossing Weather API. It offers real-time weather insights, interactive visualizations, and a sleek, responsive UI that adapts to your device, theme preference, and language.
 
-## Getting Started
+## Features
 
-First, run the development server:
+- Real-time Conditions: Displays current weather including temperature, humidity, wind, and more.
+- Sunrise & Sunset Tracking: See how long until or since sunrise/sunset in your location.
+- Daily Weather Graphs:
+  - Humidity and precipitation trends.
+  - Interactive daily summaries with min/max temperatures.
+- 14-Day Forecast Visualization:
+  - Scrollable temperature range graph.
+  - Toggle between daily and hourly data views.
+- UI Enhancements:
+  - Dark/Light Mode
+  - Celsius/Fahrenheit Toggle
+  - Multilingual Support: English, Spanish, German, and Japanese.
+  - Fully Responsive Design: Optimized for mobile, tablet, and desktop.
+  - 
+## Runnig & Deploying
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Run Locally
+
+1. Clone the repository:
 ```
+git clone https://github.com/your-username/weather-next.git
+cd weather-next
+```
+2. Install dependencies
+```
+npm install
+```
+3. Set up environment variables:
+```
+WEATHER_API_KEY=your_api_key_here
+```
+4. Start development server
+```
+npm run dev
+```
+5. Open http://localhost:3000 to view the app in your browser. (You can set a different port, or you may be assigned a different port if 3000 is in use.)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Deploy
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can easily deploy ClearSky using platforms that support Next.js, such as Vercel:
+1. Push your code to a GitHub/GitLab/Bitbucket repo.
+2. Go to vercel.com, import the project, and follow the setup steps.
+3. Set your WEATHER_API_KEY in the environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
 
-## Learn More
+- Framework: Next.js
+- Language: TypeScript
+- Data Provider: Visual Crossing Weather API
+- Charting: Recharts
 
-To learn more about Next.js, take a look at the following resources:
+_______
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[Live Demo](https://clearsky2.vercel.app/)
+[View on Portfolio](https://pablonicolas-portfolio.vercel.app/projects/01t1SJClJ9g5FRV9T3a9z5)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+

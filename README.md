@@ -55,6 +55,8 @@ You can easily deploy ClearSky using platforms that support Next.js, such as Ver
 
 _______
 
+![Screenshot of ClearSky/Weather App](https://images.ctfassets.net/5z7iu4f576oy/2kW6eeCo9a3FtEJXdz2jog/cd1eed737ba9de3167f073c640a98319/clearsky1.jpg)
+
 [Live Demo](https://clearsky2.vercel.app/)
 [View on Portfolio](https://pablonicolas-portfolio.vercel.app/projects/01t1SJClJ9g5FRV9T3a9z5)
 
